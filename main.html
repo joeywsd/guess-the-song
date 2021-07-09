@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        Author: Johnathan Sutan
+        Last Updated: 6/13/21
+        File info: Main Page of Guessing the Song
+        -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Song!</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="main.css">
+
+</head>
+    <body>
+        <div class="alan-btn"></div>
+        <header>
+            <img class = "logo" src="Images/Guess_the_Song_logo_two_thirds_height.png" height = 153 width = 200 alt= "Guess the Song logo">
+        </header>
+
+        <article>
+            
+            <div>
+                <p id = "score"></p>
+            </div>
+
+            <h3 class = "flexbox"><span id = "song_title_display_text"></span></h3>
+
+            <div class = "flexbox">
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <section class = "flexbox">   
+                <div class="buttons">
+                    <input id="range" class="level" type="range" value="0" min="0">
+                </div>
+            </section>
+
+            <section class = "flexbox"> 
+                <div class="buttons">
+                    <button id="play"><img height = 10 width = 10 id="play_img" src="images/play.png"></button>
+                </div>
+            </section>
+
+            <div class="flexbox">
+                <form id = "quiz" name = "quiz">
+                    <p>What is the name or artist of this song?</p>
+                </form>
+            </div>
+
+            <section>
+                <div id = "after_submit">
+                    <p id = "number_correct"></p>
+                    <img id = "picture" height = 100 width = 100>
+                    <p id = "message"></p>
+                </div>
+            </section>
+
+            <footer>
+                <div>
+                    <p><span class="accent">Guess the Song!<span></span>
+                    <img src="images/twittericon.png" alt= "twitter icon">
+                    <img src="images/instagramicon.png" alt= "instagram icon">
+                    <img src="images/facebookicon.png" alt= "facebook icon"></p>
+                </div>
+            </footer>
+        
+            <script src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+            <script type="text/javascript" src="main.js"></script>
+            <script type="text/javascript" src="audio_visual.js"></script>
+            
+        </article>
+    </body>
+</html>
