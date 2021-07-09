@@ -1,0 +1,177 @@
+/*
+    Author: Johnathan Sutan
+    Last Updated: 6/13/21
+    File linked: main.html, main.js, audio_visual.js
+*/
+
+/* reset styles */
+html {
+    font-size: 12px;
+    color:  #658ec6;
+    /* opacity: 0.9; */
+}
+
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+p{
+    padding: 1%;
+    font-size: medium;
+}
+
+head{
+    display: flex;    
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+    align-items: center;
+    justify-content: center;
+}
+
+header{
+    text-align: center;
+    color: #426696;
+    padding: 1%;
+}
+
+article{
+    /* max-width: 900px; */
+    margin: 0 auto;
+    position: relative;
+    /* border-radius: 8px; */
+    /* box-shadow: 1px 1px 2px 3px  #fff; */
+    background: white;
+    min-height: 80%;
+    width: 60%;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 2rem;
+    /* z-index: 2; */
+    /* -webkit-backdrop-filter: blur(2rem); */
+    /* backdrop-filter: blur(2rem); */
+}
+
+.flexbox{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+#score{
+  background: linear-gradient(to left top, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.3));
+  height: 12rem;
+  width: 12rem;
+  position: absolute;
+  border-radius: 50%;
+  top: 7%;
+  right: 7%;
+
+  padding: 2%;
+  margin: 2%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+}
+
+.buttons{
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.buttons button{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding: 16px;
+    border-radius: 90px;
+    background-color: #E1E6EC;
+    text-align: left;
+    margin: 10px 9px;
+    box-shadow: 2px 2px 5px #A2B1C6 , -2px -2px 11px  #fff;
+    /* background:linear-gradient(-45deg,#a2b1c6,#fff); */
+}
+
+.buttons button:active{
+    background: #E1E6EC;
+    /* box-shadow: inset 2px 2px 5px #A2B1C6 , -2px -2px 11px  #fff; */
+}
+
+.buttons img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 42%;
+    height: 42%;
+}
+
+.level{
+    width: 20%;
+    -webkit-appearance: none; 
+    appearance: none;
+    background: #E1E6EC;
+    box-shadow: 2px 2px 5px #A2B1C6 , -2px -2px 11px  #fff  ;
+    border-radius: 50px;
+    margin: 12px 0;
+    align-items: center;
+}
+
+#quiz{
+    width: 40%;
+}
+
+#after_submit {
+	visibility: hidden;
+    padding: 2%;
+    margin: 2%;
+	border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+#number_correct{
+    font-size: x-large;
+}
+
+#message{
+    font-size: x-large;
+}
+
+#picture {
+	width: 187px;
+	height: 122px;
+}
+
+footer{
+    margin-bottom: 3%;
+}
+
+.accent{
+    display: flex;
+    padding: 2%;
+    font-weight: bold;
+    font-size: 18px;
+    align-items: center;    
+}
+
+/* random soundwave visual */
+svg{
+    width: 30%;
+    height: 60px;
+}
