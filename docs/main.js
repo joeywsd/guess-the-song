@@ -202,7 +202,6 @@ function getDataFromItunes(){
 function playSongQuiz(){
 
   var range = document.querySelector("#range");
-  var play_img = document.querySelector("#play_img")
   var isPlaying = false;
   var song = new Audio();
     
@@ -234,11 +233,9 @@ function playSongQuiz(){
     isPlaying = true;
     total_time = 10; /* song.duration; */
     range.max = 10;  /* total_time; */
-    play_img.src = "Images/pause.png";
     
     setTimeout(function(){
         song.pause();
-        play_img.src = "Images/play.png";
         document.getElementById("svg").style.visibility = "hidden";
     },
     5000); 
@@ -246,7 +243,6 @@ function playSongQuiz(){
     if(!isPlaying){
         song.pause();
         isPlaying = false;
-        play_img.src = "Images/play.png";
     }
 
     song.addEventListener('ended',function(){
@@ -254,7 +250,6 @@ function playSongQuiz(){
         song.pause();
         isPlaying = false;
         range.value = 0;
-        play_img.src = "Images/play.png";
     })
     song.addEventListener('timeupdate',function(){
         range.value = song.currentTime; 
@@ -272,11 +267,9 @@ function playSongQuiz(){
         document.getElementById("svg").style.visibility = "visible";
     
         song.play();
-        play_img.src = "Images/pause.png";
     
         setTimeout(function(){
             song.pause();
-            play_img.src = "Images/play.png";
             document.getElementById("svg").style.visibility = "hidden";
             /* document.getElementById("song_title_display_text").style.visibility = "hidden"; */
         },
