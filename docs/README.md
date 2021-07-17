@@ -11,6 +11,7 @@
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
 * [Acknowledgements](#acknowledgements)
+* [Contact](#contact)
 
 
 ## General Information
@@ -47,3 +48,7 @@ To do:
 ## Acknowledgements
 Give credit here.
 - This project was inspired by https://www.youtube.com/watch?v=VjgL_TD9JpQ, https://www.youtube.com/watch?v=O7WbVj5apxU, and https://github.com/lpinca/binb
+
+## Contact
+Created by [@guess_the_song2021](https://www.instagram.com/guess_the_song2021/) - feel free to contact me!
+
