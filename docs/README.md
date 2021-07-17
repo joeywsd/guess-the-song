@@ -1,5 +1,6 @@
 # guess-the-song
-> Project Guess The Song is a simple single player guessing the song game. However, with the integration of Alan AI's voice assistant, the user experience is exponentially greater than the normal game.
+> Project Guess The Song is a simple single player guessing the song game. However, with the integration of Alan AI's voice assistant, the user experience is vastly greater than the conventional game.
+> 
 > Game Link: https://bit.ly/3huxoxN
 
 ## Table of Contents
@@ -7,13 +8,9 @@
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
-* [Setup](#setup)
-* [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
 * [Acknowledgements](#acknowledgements)
-* [Contact](#contact)
-<!-- * [License](#license) -->
 
 
 ## General Information
@@ -32,7 +29,7 @@
 
 ## Features
 - Alan AI voice assistant as game host
-- TBD
+- Extensive Library of Songs through iTunes Search API
 - TBD
 
 
