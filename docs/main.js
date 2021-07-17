@@ -160,9 +160,9 @@ function replaceE(arrayStr){
 
 // function that retrieves the songs, or specifically preview URLs, from iTunes
 function getDataFromItunes(){
-  let url = 'https://itunes.apple.com/lookup?id='+ popIds.join() + '&entity=song&limit=' + limit;
+  const url = 'https://itunes.apple.com/lookup?id='+ popIds.join() + '&entity=song&limit=' + limit;
           // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
-  let cors = 'https://cors-anywhere.herokuapp.com/';
+  const cors = 'https://cors-anywhere.herokuapp.com/';
   console.log(cors + url);
   //let previewUrl = []
   //let tempArtist = '';
