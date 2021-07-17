@@ -30,14 +30,12 @@
 ## Features
 - Alan AI voice assistant as game host
 - Extensive Library of Songs through iTunes Search API
-- TBD
-
 
 ## Screenshots
 ![Example screenshot 1](./Images/Milestone5b.png)
 
 ## Project Status
-Project is: in progress
+In Progress
 
 ## Room for Improvement
 To do:
