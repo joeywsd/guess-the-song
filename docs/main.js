@@ -1,76 +1,56 @@
+
 /*
     Author: Johnathan Sutan
-    Last Updated: 6/13/21    
-    File linked: main.html, main.css, audio_visual.js
+    Last Updated: 7/16/21    
+    File linked: index.html, main.css, main.js, audio_visual.js
 */
 
-// start of declaration section.
+const artistIds = {
+    pop: [
+      262836961, // ADELE
+      459885, // Avril Lavigne
+      1419227, // Beyoncé
+      /*
+      217005, // Britney Spears
+      64387566, // Katy Perry
+      277293880, // Lady GaGa
+      184932871 // MIKA
+      */
+    ],
+    rap: [
+      1587965, // A Tribe Called Quest
+      1971863, // Beastie Boys
+      465802, // Cypress Hill
+      384304, // EPMD
+      289550, // OutKast
+      13503763, // Swollen Members
+      43680 // The Roots
+    ],
+    rock: [
+      5040714, // AC/DC
+      462006, // Bob Dylan
+      994656, // Led Zeppelin
+      3296287, // Queen
+      562555, // The Beach Boys
+      136975, // The Beatles
+      62819 // The Jimi Hendrix Experience
+    ]
+  };
+  
 
-// Songs metadata dictionary.
-// Top R & B songs around 2012
-// Array starts at index zero.
-var songs_list_singer = [""];
-var songs_list_title = [""];
-var songs_played_already = [];
-songs_list_singer[1] = "WILLIAM"; // hard for alan ai to understand- WILL.I.AM pronounced Will I Am maybe do william or well I am instead
-songs_list_title[1] = "Scream & Shout";
-songs_list_singer[2] = "RIHANNA";
-songs_list_title[2] = "Diamonds";
-songs_list_singer[3] = "BRUNO Mars";
-songs_list_title[3] = "Moonshine";
+const limit = 5; // The number of songs to retrieve for each artist
+const popIds = artistIds.pop;
+const rapIds = artistIds.rap;
+const rockIds = artistIds.rock;
 
-songs_list_singer[4] = "FLO Rida";
-songs_list_title[4] = "Avalanche";
-songs_list_singer[5] = "PITBULL";
-songs_list_title[5] = "Global Warming";
-songs_list_singer[6] = "NICKI Minaj";
-songs_list_title[6] = "High School";
+var tracks = [];
+var artists = [];
+var titles = [];
 
-//Top R & B songs around 2013
-songs_list_singer[7] = "MICHAEL Telo";
-songs_list_title[7] = "Bare Bare"; //alan ai thinks that i say bear bear so i get it wrong
-songs_list_singer[8] = "ONE Direction";
-songs_list_title[8] = "Life While We're Young";
-songs_list_singer[9] = "FUN";
-songs_list_title[9] = "We Are Young";
-songs_list_singer[10] = "MAROON 5";
-songs_list_title[10] = "One More Night";
-
-songs_list_singer[11] = "BRUNO Mars";
-songs_list_title[11] = "Locked Out Of Heaven";
-songs_list_singer[12] = "KATY Perry";
-songs_list_title[12] = "Wide Awake";
-songs_list_singer[13] = "ADELE";
-songs_list_title[13] = "Skyfall";
-songs_list_singer[14] = "PSY";
-songs_list_title[14] = "Gangnam Style";
-
-songs_list_singer[15] = "ALICIA Keys";
-songs_list_title[15] = "New Day";
-songs_list_singer[16] = "KESHA";
-songs_list_title[16] = "C'mon";
-songs_list_singer[17] = "TAYLOR Swift";
-songs_list_title[17] = "Begin Again";
-songs_list_singer[18] = "ARASH";
-songs_list_title[18] = "Broken Angel";
-songs_list_singer[19] = "FUN";
-songs_list_title[19] = "Some Night";
-
-var random_number = Math.floor(Math.random() * 18) + 1;
-var song_counter = 0;
-var music_name = "R&B_2010s/00" + random_number + ".mp3";
+var songCounter = 1;
 var correct = 0;
 var questionNumber = 0;
-
-let play_btn = document.querySelector("#play");
-let prev_btn = document.querySelector("#pre");
-let next_btn = document.querySelector("#next");
-let range = document.querySelector("#range");
-let play_img = document.querySelector("#play_img")
-let total_time = 0;
-let currentTime = 0;
-let isPlaying = false;
-let song = new Audio();
+const randomNumber = Math.floor(Math.random() * ( limit * 7 - songCounter ) );
 
 // end of declaration section.
 
@@ -98,18 +78,153 @@ var alanBtnInstance = alanBtn({
     rootEl: document.getElementById("alan-btn"),
 });
 
+/*
+function getRidOfParentheses(str){
+  let parenthesis = '(';
+  let resultStr = '';
+
+  let index = str.indexOf(parenthesis);
+
+  console.log(index);
+  
+  return str.substr(0, index);
+}
+*/
+
+function checkParenth(arrayStr){
+  let parenthesis = '(';
+  let newArray = [];
+
+  arrayStr.forEach(function(item, index, array) {
+
+  let firstParenth = item.indexOf(parenthesis);
+  if( firstParenth != -1){
+      item = item.substr(0, firstParenth - 1);
+  }
+    
+  newArray.push(item);
+
+  })
+  return newArray;
+}
+
+
+function checkFeat(arrayStr){
+  let feat = 'feat.';
+  let newArray = [];
+
+  arrayStr.forEach(function(item, index, array) {
+
+  let firstFeat = item.indexOf(feat);
+  if( firstFeat != -1){
+      item = item.substr(firstFeat + 6);
+  }
+    
+  newArray.push(item);
+
+  })
+  return newArray;
+}
+
+
+/*
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substr(0, index) + replacement + 
+      this.substr(index + replacement.length);
+}
+
+item.substr(0, index) + charE + 
+      item.substr(index + replacement.length);
+
+https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
+(also similar to a hw ? in python book)
+*/
+function replaceE(arrayStr){
+  let charE = "é";
+  let newE = "e";
+  let newArray = [];
+
+  arrayStr.forEach(function(item, index, array) {
+
+  let indexE = item.indexOf(charE);
+  if( indexE != -1){
+      item = item.substr(0, indexE) + newE + 
+      item.substr(indexE + newE.length);  }
+    
+  newArray.push(item);
+
+  })
+  return newArray;
+}
+
+
+// function that retrieves the songs, or specifically preview URLs, from iTunes
+function getDataFromItunes(){
+  let url = 'https://itunes.apple.com/lookup?id='+ popIds.join() + '&entity=song&limit=' + limit;
+          // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
+  console.log(url)
+  //let previewUrl = []
+  //let tempArtist = '';
+
+  fetch(url) //fetch url and turn it into JSON then into HTML
+  .then( data => data.json())
+  .then( json => {
+    console.log(json);
+
+    //let finalHTML = '';
+    json.results.forEach( song => {
+
+      if(song.kind == "song"){
+        //previewUrl = previewUrl.append(song.previewUrl);
+        // tracks = song.previewUrl;
+        tracks.push(song.previewUrl);
+        titles.push(song.trackCensoredName);
+        //tempArtist = checkFeat(song.trackCensoredName);
+        //artists.push(song.artistName + " & " + tempArtist);
+        artists.push(song.artistName);
+
+      }
+
+    })
+
+    titles = checkParenth(titles);
+    artists = replaceE(artists);
+
+    console.log(tracks);
+    console.log(titles);
+    console.log(artists);
+  })
+  .catch( error => console.log(error))
+}
+
+
 /* function that plays the song for an initial 5 seconds */
 function playSongQuiz(){
+
+  var range = document.querySelector("#range");
+  var play_img = document.querySelector("#play_img")
+  var isPlaying = false;
+  var song = new Audio();
     
-    song_counter++;
-    document.getElementById("song_title_display_text").innerHTML = "Song #" + song_counter;
+    document.getElementById("song_title_display_text").innerHTML = "Song #" + songCounter;
 
     /* random number to get a random song */
-    random_number = Math.floor(Math.random() * 18) + 1;
-    music_name = "R&B_2010s/00" + random_number + ".mp3";
-    song.src = music_name;
-    console.log(song)
+    // randomNumber = Math.floor(Math.random() * 18) + 1;
+    // randomNumber = Math.floor(Math.random() * ( 35 - songCounter ) );
+    //console.log(3 - songCounter)
+    //console.log(randomNumber);
+    //music_name = "R&B_2010s/00" + randomNumber + ".mp3";
+    song.src = tracks[randomNumber];
+    console.log(song);
+    console.log(randomNumber);
     
+    console.log(artists[randomNumber], " and ", titles[randomNumber]);
+
+    // let myArray = ['a', 'b', 'c', 'd'];
+    // console.log(myArray.splice(2, 1));
+
+    console.log(tracks);
+
     document.getElementById("after_submit").style.visibility = "hidden";
     document.getElementById("song_title_display_text").style.visibility = "visible";
     document.getElementById("svg").style.visibility = "visible";
@@ -127,10 +242,8 @@ function playSongQuiz(){
         document.getElementById("svg").style.visibility = "hidden";
     },
     5000); 
-    }
 
     if(!isPlaying){
-        {
         song.pause();
         isPlaying = false;
         play_img.src = "Images/play.png";
@@ -150,6 +263,8 @@ function playSongQuiz(){
         song.currentTime = range.value;
     })
 
+  }
+
     /* function that plays the song for five more seconds if the user requests it */
     function continueSongQuiz(){
 
@@ -166,45 +281,59 @@ function playSongQuiz(){
             /* document.getElementById("song_title_display_text").style.visibility = "hidden"; */
         },
         5000); 
-        }
-}
+    }
 
 /* check function that uses user input from Alan AI */
 function checkAnswer(){
-    var answer = "wrong";
-	var question = answer_from_alan;
+
+    let answer = "wrong";
+    let question = answer_from_alan;
+    let pictures = ["https://media.giphy.com/media/vtm4qejJIl1ERPIrbA/giphy.gif","Images/meh.jpeg", "https://media.giphy.com/media/l0Iy7zmLUiALbkna8/giphy.gif", "Images/win.gif"];
+    let messages = ["Better Luck Next Time!", "Not Bad!", "Pretty Good!", "Great Job!"];
+
 
     questionNumber++;
 
-	if (question.toUpperCase() === songs_list_title[random_number].toUpperCase() || question.toUpperCase() === songs_list_singer[random_number].toUpperCase()){
-		correct++;
-        answer = "right";
-	}
-	
-	var pictures = ["https://media.giphy.com/media/vtm4qejJIl1ERPIrbA/giphy.gif","Images/meh.jpeg", "https://media.giphy.com/media/l0Iy7zmLUiALbkna8/giphy.gif", "Images/win.gif"];
-	var messages = ["Better Luck Next Time!", "Not Bad!", "Pretty Good!", "Great Job!"];
+    console.log(artists[randomNumber]);
+    console.log(titles[randomNumber]);
+    console.log(randomNumber);
 
-	document.getElementById("after_submit").style.visibility = "visible";
+
+    if (question.toUpperCase() === artists[randomNumber].toUpperCase() || question.toUpperCase() === titles[randomNumber].toUpperCase()){
+          correct++;
+          answer = "right";
+    }
+
+    tracks.splice(randomNumber, 1);
+    artists.splice(randomNumber, 1);
+    titles.splice(randomNumber, 1);
+
+    document.getElementById("after_submit").style.visibility = "visible";
     document.getElementById("score").style.visibility = "visible";
 
-    if (answer === "wrong"){
-        document.getElementById("message").innerHTML = "Next song for sure!";
-        document.getElementById("picture").src = "https://media.giphy.com/media/l3vR3gvEdsdJl26oU/giphy.gif";
-    }
-    else if (answer === "right"){
-        document.getElementById("message").innerHTML = "Wow, you're awesome!";
-        document.getElementById("picture").src = "https://media.giphy.com/media/RJJzGXGV9o9gbwZUFn/giphy-downsized.gif";
-    }
+      if (answer === "wrong"){
+          document.getElementById("message").innerHTML = "Next song for sure!";
+          document.getElementById("picture").src = "https://media.giphy.com/media/l3vR3gvEdsdJl26oU/giphy.gif";
+      }
+      else if (answer === "right"){
+          document.getElementById("message").innerHTML = "Wow, you're awesome!";
+          document.getElementById("picture").src = "https://media.giphy.com/media/RJJzGXGV9o9gbwZUFn/giphy-downsized.gif";
+      }
 
-    // display the conclusion message and picture at the end of the game.
-    if (questionNumber === 3){
-        document.getElementById("message").innerHTML = messages[correct];
-	    document.getElementById("picture").src = pictures[correct];    
-    }
+      // display the conclusion message and picture at the end of the game.
+      if (questionNumber === 3){
+          document.getElementById("message").innerHTML = messages[correct];
+          document.getElementById("picture").src = pictures[correct];    
+      }
 
-    document.getElementById("number_correct").innerHTML = "Your guess is " + answer + ".";
-    document.getElementById("score").innerHTML = "Score: " + correct + " / 3";
-    /* document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
-    document.getElementById("message").innerHTML = messages[correct];
-	document.getElementById("picture").src = pictures[correct]; */
+      document.getElementById("number_correct").innerHTML = "Your guess is " + answer + ".";
+      document.getElementById("score").innerHTML = "Score: " + correct + " / 3";
+      /* document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
+      document.getElementById("message").innerHTML = messages[correct];
+    document.getElementById("picture").src = pictures[correct]; */
+
+    songCounter++;
+
 }
+
+getDataFromItunes();
