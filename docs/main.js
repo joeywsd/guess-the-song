@@ -162,7 +162,8 @@ function replaceE(arrayStr){
 function getDataFromItunes(){
   let url = 'https://itunes.apple.com/lookup?id='+ popIds.join() + '&entity=song&limit=' + limit;
           // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
-  console.log(url)
+  let cors = 'https://cors-anywhere.herokuapp.com/';
+  console.log(cors + url);
   //let previewUrl = []
   //let tempArtist = '';
 
