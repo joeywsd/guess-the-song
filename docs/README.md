@@ -37,7 +37,7 @@
 
 
 ## Screenshots
-![Example screenshot](./img/Milestone5.png)
+![Example screenshot](./Images/Milestone5.png)
 
 
 ## Project Status
