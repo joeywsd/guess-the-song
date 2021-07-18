@@ -10,12 +10,10 @@ const artistIds = {
       262836961, // ADELE
       459885, // Avril Lavigne
       1419227, // Beyoncé
-      /*
       217005, // Britney Spears
       64387566, // Katy Perry
       277293880, // Lady GaGa
       184932871 // MIKA
-      */
     ],
     rap: [
       1587965, // A Tribe Called Quest
