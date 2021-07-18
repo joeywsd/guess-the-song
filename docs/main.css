@@ -160,14 +160,36 @@ article{
 
 footer{
     margin-bottom: 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer_flex{
+    display: flex;
+}
+
+.bottom_left{
+    display: flex;
+    flex-shrink: 0;
+    flex-basis: auto;
+    padding: 8%;
+}
+
+.bottom_right{
+    display: flex;
+    padding: 3%;
 }
 
 .accent{
-    display: flex;
-    padding: 2%;
     font-weight: bold;
     font-size: 18px;
-    align-items: center;    
+}
+
+.small{
+    font-size: small;
+    flex-shrink: 0;
+    flex-basis: auto;
 }
 
 /* random soundwave visual */
