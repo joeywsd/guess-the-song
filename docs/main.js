@@ -230,7 +230,7 @@ function playSongQuiz(){
     document.getElementById("svg").style.visibility = "visible";
     random_soundwave();
 
-    song.play();
+    song.play().catch( error => console.log(error));
     isPlaying = true;
     total_time = 10; /* song.duration; */
     range.max = 10;  /* total_time; */
