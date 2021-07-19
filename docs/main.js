@@ -194,6 +194,15 @@ function getDataFromItunes(){
     genre = rap;
   }
 
+  /*
+  const xhr = new XMLHttpRequest();
+  const url = 'https://bar.other/resources/public-data/';
+
+  xhr.open('GET', url);
+  xhr.onreadystatechange = someHandler;
+  xhr.send();
+  */
+  
   const url = 'https://itunes.apple.com/lookup?id='+ genre.join() + '&entity=song&limit=' + limit;
           // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
   const cors = 'https://cors-anywhere.herokuapp.com/';
@@ -201,7 +210,7 @@ function getDataFromItunes(){
   //let previewUrl = []
   //let tempArtist = '';
 
-  fetch(url) //fetch url and turn it into JSON then into HTML
+  fetch(cors + url) //fetch url and turn it into JSON then into HTML
   .then( data => data.json())
   .then( json => {
     console.log(json);
