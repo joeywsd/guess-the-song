@@ -37,18 +37,32 @@ const artistIds = {
   
 
 const limit = 5; // The number of songs to retrieve for each artist
-const popIds = artistIds.pop;
-const rapIds = artistIds.rap;
-const rockIds = artistIds.rock;
+const pop = artistIds.pop;
+const rap = artistIds.rap;
+const rock = artistIds.rock;
 
 var tracks = [];
 var artists = [];
 var titles = [];
 
+/*
+var popTracks = [];
+var popArtists = [];
+var popTitles = [];
+var rockTracks = [];
+var rockArtists = [];
+var rockTitles = [];
+var rapTracks = [];
+var rapArtists = [];
+var rapTitles = [];
+*/
+
 var songCounter = 1;
 var correct = 0;
 var questionNumber = 0;
-const randomNumber = Math.floor(Math.random() * ( limit * 7 - songCounter ) );
+var randomNumber = 0;
+
+var genre;
 
 // end of declaration section.
 
@@ -68,6 +82,10 @@ var alanBtnInstance = alanBtn({
         else if (commandData.command === "checkanswer") {
             answer_from_alan = commandData.value.value;
             checkAnswer();  
+        }
+        else if( commandData.command === "getItunesData"){
+          genreFromAlan = commandData.value.value;
+          getDataFromItunes();
         }
         else if (commandData.command === "resetpage") {
             correct = 0;
@@ -89,6 +107,8 @@ function getRidOfParentheses(str){
 }
 */
 
+// function that checks each item of an array for a paranthesis and returns a new array
+// without the parantheses and the characters within the parantheses.
 function checkParenth(arrayStr){
   let parenthesis = '(';
   let newArray = [];
@@ -106,7 +126,8 @@ function checkParenth(arrayStr){
   return newArray;
 }
 
-
+// function that checks each item of an array for a "feat." and returns a new array
+// without the parantheses and the characters within the parantheses.
 function checkFeat(arrayStr){
   let feat = 'feat.';
   let newArray = [];
@@ -137,6 +158,9 @@ item.substr(0, index) + charE +
 https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
 (also similar to a hw ? in python book)
 */
+
+// function that checks each item of an array for an "é" and returns a new array
+// with the "é" replaced with a normal "e".
 function replaceE(arrayStr){
   let charE = "é";
   let newE = "e";
@@ -158,7 +182,19 @@ function replaceE(arrayStr){
 
 // function that retrieves the songs, or specifically preview URLs, from iTunes
 function getDataFromItunes(){
-  const url = 'https://itunes.apple.com/lookup?id='+ popIds.join() + '&entity=song&limit=' + limit;
+
+  genre = genreFromAlan;
+  if(genre == "pop"){
+    genre = pop;
+  }
+  else if(genre == "Rock"){
+    genre = rock;
+  }
+  else if(genre == "rap"){
+    genre = rap;
+  }
+
+  const url = 'https://itunes.apple.com/lookup?id='+ genre.join() + '&entity=song&limit=' + limit;
           // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
   const cors = 'https://cors-anywhere.herokuapp.com/';
   console.log(cors + url);
@@ -189,22 +225,49 @@ function getDataFromItunes(){
     titles = checkParenth(titles);
     artists = replaceE(artists);
 
+    // console.log(JSON.stringify(obj));
     console.log(tracks);
     console.log(titles);
     console.log(artists);
   })
   .catch( error => console.log(error))
+
 }
 
 
 /* function that plays the song for an initial 5 seconds */
 function playSongQuiz(){
+    randomNumber = Math.floor(Math.random() * ( limit * genre.length - songCounter)); 
+    // "* pop.length" because there are 7 artists
+    // "- songCounter" because a song is used each time, decreasing the array, 
+    // so the random number selecting the song should be decremented.
+    console.log(genre.length);
 
-  var range = document.querySelector("#range");
-  var isPlaying = false;
-  var song = new Audio();
+    var range = document.querySelector("#range");
+    var isPlaying = false;
+
+    /*
+    if (genre.toUpperCase() === "POP"){
+      tracks = popTracks;
+      artists = popArtists;
+      titles = popTitles;
+    }
+    else if(genre.toUpperCase() === "ROCK"){
+      tracks = rockTracks;
+      artists = rockArtists;
+      titles = rockTitles;
+    }
+    else if(genre.toUpperCase() === "RAP"){
+      tracks = rapTracks;
+      artists = rapArtists;
+      titles = rapTitles;
+    }
+    */
+    var song = new Audio();
+    song.src = tracks[randomNumber]; 
     
-    document.getElementById("song_title_display_text").innerHTML = "Song #" + songCounter;
+    document.getElementById("song_title_display_text").innerHTML = "Song #" 
+    + songCounter;
 
     /* random number to get a random song */
     // randomNumber = Math.floor(Math.random() * 18) + 1;
@@ -212,7 +275,6 @@ function playSongQuiz(){
     //console.log(3 - songCounter)
     //console.log(randomNumber);
     //music_name = "R&B_2010s/00" + randomNumber + ".mp3";
-    song.src = tracks[randomNumber];
     console.log(song);
     console.log(randomNumber);
     
@@ -228,39 +290,72 @@ function playSongQuiz(){
     document.getElementById("svg").style.visibility = "visible";
     random_soundwave();
 
-    song.play().catch( error => console.log(error));
-    isPlaying = true;
-    total_time = 10; /* song.duration; */
-    range.max = 10;  /* total_time; */
+    /*
+    var playPromise = video.play();
     
-    setTimeout(function(){
-        song.pause();
-        document.getElementById("svg").style.visibility = "hidden";
-    },
-    5000); 
-
-    if(!isPlaying){
-        song.pause();
-        isPlaying = false;
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        // Automatic playback started!
+        // Show playing UI.
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+      });
     }
+    */
 
-    song.addEventListener('ended',function(){
-        song.currentTime = 0
-        song.pause();
-        isPlaying = false;
-        range.value = 0;
-    })
-    song.addEventListener('timeupdate',function(){
-        range.value = song.currentTime; 
-    })
-    range.addEventListener('change',function(){
-        song.currentTime = range.value;
-    })
+    var playPromise = song.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+ 
+        isPlaying = true;
+        total_time = 10; /* song.duration; */
+        range.max = 10;  /* total_time; */
+        
+        setTimeout(function(){
+            song.pause();
+            document.getElementById("svg").style.visibility = "hidden";
+        },
+        5000); 
+    
+        if(!isPlaying){
+            song.pause();
+            isPlaying = false;
+        }
+    
+        song.addEventListener('ended',function(){
+            song.currentTime = 0
+            song.pause();
+            isPlaying = false;
+            range.value = 0;
+        })
+        song.addEventListener('timeupdate',function(){
+            range.value = song.currentTime; 
+        })
+        range.addEventListener('change',function(){
+            song.currentTime = range.value;
+        })
+
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+        console.log(error);
+        console.log(tracks);
+        console.log(randomNumber);
+        console.log(tracks[randomNumber]);
+      });
+    }
 
   }
 
     /* function that plays the song for five more seconds if the user requests it */
     function continueSongQuiz(){
+
+        var song = new Audio();
+        song.src = tracks[randomNumber]; 
 
         document.getElementById("song_title_display_text").style.visibility = "visible";
         document.getElementById("svg").style.visibility = "visible";
@@ -279,7 +374,7 @@ function playSongQuiz(){
 function checkAnswer(){
 
     let answer = "wrong";
-    let question = answer_from_alan;
+    let guess = answer_from_alan;
     let pictures = ["https://media.giphy.com/media/vtm4qejJIl1ERPIrbA/giphy.gif","Images/meh.jpeg", "https://media.giphy.com/media/l0Iy7zmLUiALbkna8/giphy.gif", "Images/win.gif"];
     let messages = ["Better Luck Next Time!", "Not Bad!", "Pretty Good!", "Great Job!"];
 
@@ -291,7 +386,7 @@ function checkAnswer(){
     console.log(randomNumber);
 
 
-    if (question.toUpperCase() === artists[randomNumber].toUpperCase() || question.toUpperCase() === titles[randomNumber].toUpperCase()){
+    if (guess.toUpperCase() === artists[randomNumber].toUpperCase() || guess.toUpperCase() === titles[randomNumber].toUpperCase()){
           correct++;
           answer = "right";
     }
@@ -327,5 +422,3 @@ function checkAnswer(){
     songCounter++;
 
 }
-
-getDataFromItunes();
