@@ -7,36 +7,45 @@
 
 const artistIds = {
     pop: [
-      262836961, // ADELE
-      459885, // Avril Lavigne
-      1419227, // Beyoncé
-      217005, // Britney Spears
-      64387566, // Katy Perry
-      277293880, // Lady GaGa
-      184932871 // MIKA
+      271256, // Drake
+      966309175, // Post Malone
+      183313439, // Ed Sheeran
+      966309175, // Taylor Swift
+      956078923, // Cardi B
+      1082533559, // xxxtentacion // https://www.youtube.com/watch?v=QZz9zQQwo3E
+      358714030, // Imagine Dragons
+      278873078, // Bruno Mars
+      883131348, // BTS
+      935727853, // Camila Cabello
     ],
     rap: [
-      1587965, // A Tribe Called Quest
-      1971863, // Beastie Boys
-      465802, // Cypress Hill
-      384304, // EPMD
-      289550, // OutKast
-      13503763, // Swollen Members
-      43680 // The Roots
+      368183298, // Kendrick Lamar
+      271256, // Drake
+      682277, // Pusha T
+      953921140, // Kodak Black
+      1082533559, // xxxtentacion // https://www.youtube.com/watch?v=QZz9zQQwo3E
+      111051, // Eminem
+      313865761, // Meek Mill
+      440458549, // Tory Lanez
+      3973268, // Offset
+      1276656483, // Lil Baby
     ],
     rock: [
-      5040714, // AC/DC
-      462006, // Bob Dylan
-      994656, // Led Zeppelin
+      358714030, // Imagine Dragons
+      167649475, // Portugal. The Man
+      80456331, // Panic! At the Disco
+      349736311, // Twenty One Pilots
+      258875116, // Five Finger Death Punch
       3296287, // Queen
-      562555, // The Beach Boys
+      414023649, // Foster The People
+      1220215284, // lovelytheband
+      1005229146, // Bad Wolves
       136975, // The Beatles
-      62819 // The Jimi Hendrix Experience
     ]
   };
   
 
-const limit = 5; // The number of songs to retrieve for each artist
+const limit = 1; // The number of songs to retrieve for each artist
 const pop = artistIds.pop;
 const rap = artistIds.rap;
 const rock = artistIds.rock;
@@ -62,6 +71,9 @@ var correct = 0;
 var questionNumber = 0;
 var randomNumber = 0;
 
+const volume = 0.4;
+
+var song;
 var genre;
 
 // end of declaration section.
@@ -205,12 +217,15 @@ function getDataFromItunes(){
   
   const url = 'https://itunes.apple.com/lookup?id='+ genre.join() + '&entity=song&limit=' + limit;
           // https://itunes.apple.com/lookup?id=262836961           &entity=song&limit=5
-  const cors = 'https://cors-anywhere.herokuapp.com/';
-  console.log(cors + url);
+  //const cors = 'https://cors-anywhere.herokuapp.com/';
+  // console.log(cors + url);
+
+  console.log(url);
   //let previewUrl = []
   //let tempArtist = '';
 
-  fetch(cors + url) //fetch url and turn it into JSON then into HTML
+  // fetch(cors + url) //fetch url and turn it into JSON then into HTML
+  fetch(url) //fetch url and turn it into JSON then into HTML
   .then( data => data.json())
   .then( json => {
     console.log(json);
@@ -247,7 +262,7 @@ function getDataFromItunes(){
 /* function that plays the song for an initial 5 seconds */
 function playSongQuiz(){
     randomNumber = Math.floor(Math.random() * ( limit * genre.length - songCounter)); 
-    // "* pop.length" because there are 7 artists
+    // "* genre.length" because that's the number of artists
     // "- songCounter" because a song is used each time, decreasing the array, 
     // so the random number selecting the song should be decremented.
     console.log(genre.length);
@@ -272,8 +287,10 @@ function playSongQuiz(){
       titles = rapTitles;
     }
     */
-    var song = new Audio();
+    song = new Audio();
     song.src = tracks[randomNumber]; 
+    song.volume = volume;
+
     
     document.getElementById("song_title_display_text").innerHTML = "Song #" 
     + songCounter;
@@ -363,8 +380,7 @@ function playSongQuiz(){
     /* function that plays the song for five more seconds if the user requests it */
     function continueSongQuiz(){
 
-        var song = new Audio();
-        song.src = tracks[randomNumber]; 
+        // song.src = tracks[randomNumber]; 
 
         document.getElementById("song_title_display_text").style.visibility = "visible";
         document.getElementById("svg").style.visibility = "visible";
