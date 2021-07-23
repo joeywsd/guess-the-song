@@ -1,7 +1,7 @@
 
 /*
 Author: Johnathan Sutan
-Last Updated: 7/22/21    
+Last Updated: 7/23/21    
 File linked: index.html, main.css, main.js, audio_visual.js
 */
 
