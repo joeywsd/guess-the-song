@@ -57,14 +57,6 @@ article{
     /* backdrop-filter: blur(2rem); */
 }
 
-.flexbox{
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
-    text-align: center;
-}
-
 #score{
   background: linear-gradient(to left top, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.3));
   height: 12rem;
@@ -83,6 +75,18 @@ article{
   text-align: center;
 }
 
+.flexbox{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+#song_number{
+    padding:1%;
+}
+
 .buttons{
     display: inline-block;
     width: 100%;
@@ -91,31 +95,9 @@ article{
     text-align: center;
 }
 
-.buttons button{
-    position: relative;
-    width: 50px;
-    height: 50px;
-    padding: 16px;
-    border-radius: 90px;
-    background-color: #E1E6EC;
-    text-align: left;
-    margin: 10px 9px;
-    box-shadow: 2px 2px 5px #A2B1C6 , -2px -2px 11px  #fff;
-    /* background:linear-gradient(-45deg,#a2b1c6,#fff); */
-}
-
-.buttons button:active{
-    background: #E1E6EC;
-    /* box-shadow: inset 2px 2px 5px #A2B1C6 , -2px -2px 11px  #fff; */
-}
-
-.buttons img{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    width: 42%;
-    height: 42%;
+// https://stackoverflow.com/questions/20387534/prevent-mousedown-event-on-input-range-html-element-and-still-let-user-drag-slid/52007221
+input[type=range]{
+    pointer-events: none;
 }
 
 .level{
