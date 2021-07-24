@@ -499,6 +499,8 @@ function playSongQuiz(){
     song.volume = volume;
 
 
+    document.getElementsByClassName("buttons").disabled = true;
+
     document.getElementById("song_number").innerHTML = "Song #" 
     + songCounter;
 
@@ -543,7 +545,6 @@ function playSongQuiz(){
         
         setTimeout(function(){
             song.pause();
-            document.getElementById("svg").style.visibility = "hidden";
         },
         5000); 
 
@@ -590,7 +591,6 @@ function continueSongQuiz(){
 
     setTimeout(function(){
         song.pause();
-        document.getElementById("svg").style.visibility = "hidden";
         /* document.getElementById("song_title_display_text").style.visibility = "hidden"; */
     },
     5000); 
