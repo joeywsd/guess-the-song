@@ -1,90 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!--
-        Author: Johnathan Sutan
-        Last Updated: 7/23/21
-        File info: Main Page of Guessing the Song
-        -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Song!</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans&display=swap"
-      rel="stylesheet"
-    />
+    <head>
+        <!--
+            Author: Johnathan Sutan
+            Last Updated: 7/23/21
+            File info: Main Page of Guessing the Song
+            -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Guess the Song!</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+        rel="stylesheet"
+        />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans&display=swap"
+        rel="stylesheet"
+        />
 
-    <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="main.css">
 
-</head>
+    </head>
     <body>
-        <div class="alan-btn"></div>
-        <header>
-            <img class = "logo" src="Images/Guess_the_Song_logo_two_thirds_height.png" height = 153 width = 200 alt= "Guess the Song logo">
-        </header>
-
-        <article>
+        <main>
+            <section class = "nav_section">
+                <img class = "logo" src="Images/Guess_the_Song_logo_smaller.png" height = 120 width = 163 alt= "Guess the Song logo">
+            </section>
             
-            <div>
-                <p id = "score"></p>
-            </div>
-
-            <h3 class = "flexbox"><span id = "song_number"></span></h3>
-
-            <div class = "flexbox">
-                <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
-            </div>
-
-            <section class = "flexbox">   
-                <div class="buttons">
-                    <input id="range" class="level" type="range" value="0" min="0">
+            <article>
+                <h3 class = "flexbox"><span id = "song_number"></span></h3>
+                <div class = "flexbox">
+                    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
                 </div>
-            </section>
 
-            <div class="flexbox">
-                <form id = "quiz" name = "quiz">
-                    <p>What is the name or artist of this song?</p>
-                </form>
-            </div>
-
-            <section>
-                <div id = "after_submit">
-                    <div class = "messsage_flex">
-                        <p id = "is_correct"></p>
-                        <p id = "message"></p>
+                <section class = "flexbox">   
+                    <div class="buttons">
+                        <input id="range" class="level" type="range" value="0" min="0">
                     </div>
-                    <img id = "picture" height = 100 width = 100>
-                    <div class = "messsage_flex">
-                        <p id = "song_title"></p>
-                        <p id = "by">by</p>
-                        <p id = "song_artist"></p>
+                </section>
+
+                <div class="flexbox">
+                    <form id = "quiz" name = "quiz">
+                        <p>What is the name or artist of this song?</p>
+                    </form>
+                </div>
+
+                <section>
+                    <div id = "after_submit">
+                        <div class = "messsage_flex">
+                            <p id = "is_correct"></p>
+                            <p id = "message"></p>
+                        </div>
+                        <img id = "picture" height = 100 width = 100>
+                        <div class = "messsage_flex">
+                            <p id = "song_title"></p>
+                            <p id = "by">by</p>
+                            <p id = "song_artist"></p>
+                        </div>
+                    </div>
+                </section>
+                <footer>
+                    <div class = "footer_flex">
+                        <p class = "bottom_left">
+                            <span class="accent">Guess the Song!</span>
+                            <img src="Images/twittericon.png" alt= "twitter icon">
+                            <img src="Images/instagramicon.png" alt= "instagram icon">
+                            <img src="Images/facebookicon.png" alt= "facebook icon">
+                        </p>
+                    </div>
+                    <div class = "bottom_right">
+                        <p class = "small">Audio provided courtesy of iTunes</p>
+                    </div>
+                </footer>
+            </article>
+
+            <section class = "song_history">
+                <p class = "history_title">Songs Played</p>
+                <div class = "song_list">
+                </div>
+                <!--
+                <div class = "song_played">
+                    <img class = "circle_pic" src="Images/twittericon.png" alt= "twitter icon">
+                    <div class = "flexbox">
+                        <p class = "played_title">Song title</p>
+                        <p class = "played_artist">Song artist</p>
                     </div>
                 </div>
+                -->
             </section>
+        </main>
 
-            <footer>
-                <div class = "footer_flex">
-                    <p class = "bottom_left">
-                        <span class="accent">Guess the Song!</span>
-                        <img src="Images/twittericon.png" alt= "twitter icon">
-                        <img src="Images/instagramicon.png" alt= "instagram icon">
-                        <img src="Images/facebookicon.png" alt= "facebook icon">
-                    </p>
-                </div>
-                <div class = "bottom_right">
-                    <p class = "small">Audio provided courtesy of iTunes</p>
-                </div>
-            </footer>
+        <div class="alan-btn"></div>
+        <div>
+            <p id = "score"></p>
+        </div>
         
-            <script src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
-            <script type="text/javascript" src="main.js"></script>
-            <script type="text/javascript" src="audio_visual.js"></script>
-
-        </article>
+        <script src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="audio_visual.js"></script>
     </body>
 </html>
