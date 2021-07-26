@@ -53,6 +53,7 @@ const rock = artistIds.rock;
 var tracks = [];
 var artists = [];
 var titles = [];
+var pictures = [];
 
 var songCounter = 1;
 var correct = 0;
@@ -64,6 +65,10 @@ const volume = 0.4;
 
 var song;
 var genre;
+
+var playedTitles = [];
+var playedArtists = [];
+var playedPictures = [];
 
 // end of declaration section.
 
@@ -91,9 +96,13 @@ onCommand: function (commandData) {
     else if (commandData.command === "resetpage") {
         correct = 0;
         songCounter = 1;
+        playedTitles = [];
+        playedArtists = [];
+        playedPictures = [];
         document.getElementById("song_number").style.visibility = "hidden";
         document.getElementById("score").style.visibility = "hidden";
         document.getElementById("after_submit").style.visibility = "hidden";
+        document.getElementById("svg").style.visibility = "hidden";
     }
 },
 rootEl: document.getElementById("alan-btn"),
@@ -361,6 +370,45 @@ function removePunctDigStr(Str){
 
 //removePunctDigArray(["water..", "chicken!", "mercy.1", ".water32", "A$AP Rocky", "Beyoncé", "!#$%watér"]);
 
+function songHistory(){
+
+    var sectionCountdownSelector = document.querySelector('.song_list'); // select your div
+
+    var docFragment = document.createDocumentFragment(); // to not redraw DOM every time
+
+    var song_div = document.createElement('DIV'); // create a div elem
+    song_div.setAttribute('class', 'song_played');
+
+    var img_element = document.createElement('IMG'); 
+    img_element.setAttribute('class', 'circle_pic');
+    img_element.src = playedPictures[songCounter - 1];
+
+    console.log(playedPictures[songCounter - 1])
+
+    var text_div = document.createElement('DIV');
+    text_div.setAttribute('class', 'flexbox'); 
+
+    var title_p = document.createElement('P'); 
+    title_p.setAttribute('class', 'played_title');
+    title_p.innerHTML = playedTitles[songCounter - 1];
+
+    console.log(playedTitles[songCounter - 1])
+
+    var artist_p = document.createElement('P'); 
+    artist_p.setAttribute('class', 'played_artist'); 
+    artist_p.innerHTML = playedArtists[songCounter - 1];
+
+    console.log(playedArtists[songCounter - 1])
+
+    docFragment.appendChild(song_div); // append div elem to your fragment
+    song_div.appendChild(img_element); 
+    song_div.appendChild(text_div);
+    text_div.appendChild(title_p);
+    text_div.appendChild(artist_p);
+
+
+    sectionCountdownSelector.appendChild(docFragment); // this appends the elem on your DOM
+}
 
 // function that retrieves the songs, or specifically preview URLs, from iTunes
 function getDataFromItunes(genreResponse){
@@ -452,6 +500,8 @@ function getDataFromItunes(genreResponse){
                         featArtist = checkFeatStr(song.trackCensoredName); 
                         console.log(featArtist);
                         console.log(song.trackCensoredName);
+
+                        pictures.push(song.artworkUrl60)
     
                         // check if the (ITEM, NOT ARRAY) song title has a feat.
                         // put the artist in a variable
@@ -618,8 +668,8 @@ function checkAnswer(guessResponse){
     var main = strings.main;
     var feat = strings.feat;
 
-    mainArray = featArtists(main);
-    featArray = featArtists(feat);
+    var mainArray = featArtists(main);
+    var featArray = featArtists(feat);
 
     console.log(featArtists(main));
     console.log(featArtists(feat));
@@ -737,9 +787,11 @@ function checkAnswer(guessResponse){
 
     if( mainArray.length > 1){
         document.getElementById("song_artist").innerHTML = mainArray[0] + " & more...";
+        playedArtists.push(mainArray[0] + " & more...");
     }
     else{
         document.getElementById("song_artist").innerHTML = mainArray[0];
+        playedArtists.push(mainArray[0]);
     }
 
     
@@ -753,12 +805,18 @@ function checkAnswer(guessResponse){
     document.getElementById("picture").src = pictures[correct]; 
     */
 
+    playedTitles.push(titles[randomNumber]);
+    playedPictures.push(pictures[randomNumber]);
+    // playedArtists is pushed in the above if else statement
+
     // splice removes the selected item from the array
     // removes the played song and prevents playing repeats, or the same song multiple times.
     tracks.splice(randomNumber, 1);
     artists.splice(randomNumber, 1);
     titles.splice(randomNumber, 1);
+    pictures.splice(randomNumber, 1);
+
+    songHistory();
 
     songCounter++;
-
 }
