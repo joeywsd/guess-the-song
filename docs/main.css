@@ -37,9 +37,11 @@ main{
     align-items: center;
     justify-content: space-evenly;
     padding: 6% 1% 0 0;
+    flex-flow: row wrap;
 }
 
 .nav_section{
+    display: flex;
     padding: 2%;
     margin-left: 1%;
     flex: 1;
@@ -49,6 +51,7 @@ main{
         rgba(255, 255, 255, 0.3)
       );
       border-radius: 50%;
+      justify-content: center;
 }
 
 article{
@@ -56,6 +59,7 @@ article{
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
     flex: 7;
+    position: relative;
 }
 
 .song_history{
@@ -66,7 +70,6 @@ article{
     text-align: center;
     align-self: stretch;
     height: 35rem;
-    overflow: auto;
 }
 
 #score{
@@ -81,8 +84,8 @@ article{
     position: absolute;
     border-radius: 50%;
     visibility: hidden;
-    top: 23%;
-    left: 62%;
+    top: 7%;
+    right: 7%;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
@@ -223,6 +226,11 @@ footer{
     padding-bottom: 2%;
 }
 
+.song_list{
+    height: 31.8rem;
+    overflow: auto; /* requires a container of set height */
+}
+
 .song_played{
     display: flex;
     justify-content: center;
@@ -245,4 +253,32 @@ footer{
 svg{
     width: 30%;
     height: 60px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+}
+    
+/* Track */
+::-webkit-scrollbar-track {
+    background:#eff2f5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #79bdb0; 
+    border: 2px solid #eff2f5;
+    border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #e1e6ecd5;
+}
+
+@media screen and (max-width: 1300px){
+    main section, article{
+        flex-basis: 100%;
+    }
 }
