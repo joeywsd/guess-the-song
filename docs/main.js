@@ -57,18 +57,21 @@ var pictures = [];
 
 var songCounter = 1;
 var correct = 0;
-var questionNumber = 0;
+// var questionNumber = 0;
 var randomNumber = 0;
 var nSongs = 0;
 
 const volume = 0.4;
 
-var song;
+var song = new Audio();;
 var genre;
 
 var playedTitles = [];
 var playedArtists = [];
 var playedPictures = [];
+
+var timerFlag = "OFF";
+var pauseTimer;
 
 // end of declaration section.
 
@@ -490,8 +493,32 @@ function getDataFromItunes(genreResponse){
                 // if not a repeat
                 if(!repeat){
 
+                    if(genre == "ROCK"){
+                        
+                        titles.push(song.trackCensoredName);
+                        tracks.push(song.previewUrl);
+                        nSongs++;
+                    
+                        featArtist = checkFeatStr(song.trackCensoredName); 
+                        console.log(featArtist);
+                        console.log(song.trackCensoredName);
+
+                        pictures.push(song.artworkUrl60)
+    
+                        // check if the (ITEM, NOT ARRAY) song title has a feat.
+                        // put the artist in a variable
+                        // have the variable added ex. "artists.push(... + newVariable)"
+    
+                        if (featArtist != ""){
+                            artists.push(song.artistName + " &* " + featArtist);
+                        }
+                        else{
+                            artists.push(song.artistName);
+                        }
+                    }
                     // check if the song is actually a song of the chosen genre
-                    if(song.primaryGenreName.toUpperCase().includes(genre) ){
+                    //let's not check rock- rock artists mostly do rock/alternative/metal genre anyway
+                    else if(song.primaryGenreName.toUpperCase().includes(genre) ){
 
                         titles.push(song.trackCensoredName);
                         tracks.push(song.previewUrl);
@@ -532,6 +559,14 @@ function getDataFromItunes(genreResponse){
 
 }
 
+function timer(){
+    timerFlag = "ON",
+    pauseTimer = setTimeout(function(){
+        song.pause();
+        timerFlag = "OFF";
+    },
+    5000); 
+}
 
 /* function that plays the song for an initial 5 seconds */
 function playSongQuiz(){
@@ -544,7 +579,6 @@ function playSongQuiz(){
     var range = document.querySelector("#range");
     var isPlaying = false;
 
-    song = new Audio();
     song.src = tracks[randomNumber]; 
     song.volume = volume;
 
@@ -592,29 +626,33 @@ function playSongQuiz(){
         isPlaying = true;
         total_time = 10; /* song.duration; */
         range.max = 10;  /* total_time; */
-        
-        setTimeout(function(){
-            song.pause();
-        },
-        5000); 
+
+        timer();
 
         if(!isPlaying){
             song.pause();
             isPlaying = false;
         }
-
+        /*
+        // pauses song when it completely ends, not very applicable
         song.addEventListener('ended',function(){
             song.currentTime = 0
             song.pause();
             isPlaying = false;
             range.value = 0;
         })
+        */
+        // updates the button on the bar
         song.addEventListener('timeupdate',function(){
             range.value = song.currentTime; 
         })
+        /*
+        // updates the button on the bar if the user slides the button, but that's disables so this is useless
         range.addEventListener('change',function(){
             song.currentTime = range.value;
+            console.log(range.value)
         })
+        */
 
         })
         .catch(error => {
@@ -626,24 +664,18 @@ function playSongQuiz(){
         console.log(tracks[randomNumber]);
         });
     }
-
 }
 
 /* function that plays the song for five more seconds if the user requests it */
 function continueSongQuiz(){
 
     // song.src = tracks[randomNumber]; 
-
     document.getElementById("song_number").style.visibility = "visible";
     document.getElementById("svg").style.visibility = "visible";
 
     song.play();
 
-    setTimeout(function(){
-        song.pause();
-        /* document.getElementById("song_title_display_text").style.visibility = "hidden"; */
-    },
-    5000); 
+    timer();
 }
 
 /* check function that uses user input from Alan AI */
@@ -655,7 +687,7 @@ function checkAnswer(guessResponse){
     // let endMessages = ["No Sweat!", "Not Bad!", "Pretty Good!", "Great Job!"];
     let messages = ["C'mon!", "Awesome!", "*FEATURED artist*"];
 
-    questionNumber++;
+    // questionNumber++;
 
     console.log(artists[randomNumber]);
     console.log(titles[randomNumber]);
@@ -674,6 +706,16 @@ function checkAnswer(guessResponse){
     console.log(featArtists(main));
     console.log(featArtists(feat));
 
+    if( timerFlag == "OFF"){
+        ;
+    }
+    else if( timerFlag == "ON"){
+        clearTimeout(pauseTimer);
+        song.pause();
+    }
+    else{
+        console.log("Error");
+    }
 
     // loop to get every artist of mainArray
     let i = 0;
@@ -778,7 +820,7 @@ function checkAnswer(guessResponse){
     }
     */
 
-    document.getElementById("score").innerHTML = "Score: " + correct + " / 3";
+    document.getElementById("score").innerHTML = "Score: " + correct + " / " + songCounter;
 
     document.getElementById("is_correct").innerHTML = answer.toUpperCase() + "!"
     document.getElementById("message").innerHTML = messages[verdict];
@@ -819,4 +861,10 @@ function checkAnswer(guessResponse){
     songHistory();
 
     songCounter++;
-}
+
+    // Make sure to finish CheckAnswer() (i.e. to return to the caller) after the timer is done.
+    // Stall the execution here until the timer is completed, then finish the function execution (i.e. return to the caller).
+    // Implement a solution without timer(), but also check the remaining timer.
+    // Use TimerFlag RUNNING or OFF.
+    // For example: 
+} // End of CheckAnswer().
