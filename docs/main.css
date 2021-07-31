@@ -1,6 +1,6 @@
 /*
     Author: Johnathan Sutan
-    Last Updated: 7/23/21
+    Last Updated: 7/30/21
     File linked: index.html, main.js, audio_visual.js, itunes.js
 */
 
@@ -9,7 +9,7 @@ html {
     font-size: 12px;
     font-family: "Poppins", sans-serif;
     background: linear-gradient(to right top, #65dfc9, #6cdbeb);
-    color:  #658ec6;
+    color:  #255496;
     /* opacity: 0.9; */
 }
 
@@ -60,6 +60,7 @@ article{
     border-radius: 2rem;
     flex: 7;
     position: relative;
+    padding-top: 1%;
 }
 
 .song_history{
@@ -70,6 +71,7 @@ article{
     text-align: center;
     align-self: stretch;
     height: 35rem;
+    padding: 1%;
 }
 
 #score{
@@ -227,7 +229,7 @@ footer{
 }
 
 .song_list{
-    height: 31.8rem;
+    height: 30rem;
     overflow: auto; /* requires a container of set height */
 }
 
@@ -267,14 +269,14 @@ svg{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #79bdb0; 
+    background: #7DCCD9; 
     border: 2px solid #eff2f5;
     border-radius: 100px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #e1e6ecd5;
+    background: #8BC2CB;
 }
 
 @media screen and (max-width: 1300px){
