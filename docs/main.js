@@ -1,7 +1,7 @@
 
 /*
 Author: Johnathan Sutan
-Last Updated: 7/23/21    
+Last Updated: 7/30/21    
 File linked: index.html, main.css, main.js, audio_visual.js
 */
 
@@ -50,10 +50,13 @@ const pop = artistIds.pop;
 const rap = artistIds.rap;
 const rock = artistIds.rock;
 
+const volume = 0.4;
+
 var tracks = [];
 var artists = [];
 var titles = [];
 var pictures = [];
+var urls = [];
 
 var songCounter = 1;
 var correct = 0;
@@ -61,14 +64,10 @@ var correct = 0;
 var randomNumber = 0;
 var nSongs = 0;
 
-const volume = 0.4;
-
 var song = new Audio();;
 var genre;
 
-var playedTitles = [];
 var playedArtists = [];
-var playedPictures = [];
 
 var timerFlag = "OFF";
 var pauseTimer;
@@ -82,11 +81,11 @@ onCommand: function (commandData) {
     if (commandData.command === "go:back") {
     //call client code that will react on the received command
     }
-    else if (commandData.command === "playsongquiz") {
-        playSongQuiz();
+    else if (commandData.command === "playsong") {
+        playSong();
     }
-    else if (commandData.command === "continuesongquiz") {
-        continueSongQuiz();
+    else if (commandData.command === "continuesong") {
+        continueSong();
     }
     else if (commandData.command === "checkanswer") {
         var answerFromAlan = commandData.value.value;
@@ -99,9 +98,7 @@ onCommand: function (commandData) {
     else if (commandData.command === "resetpage") {
         correct = 0;
         songCounter = 1;
-        playedTitles = [];
         playedArtists = [];
-        playedPictures = [];
         document.getElementById("song_number").style.visibility = "hidden";
         document.getElementById("score").style.visibility = "hidden";
         document.getElementById("after_submit").style.visibility = "hidden";
@@ -384,33 +381,49 @@ function songHistory(){
 
     var img_element = document.createElement('IMG'); 
     img_element.setAttribute('class', 'circle_pic');
-    img_element.src = playedPictures[songCounter - 1];
+    img_element.src = pictures[randomNumber];
 
-    console.log(playedPictures[songCounter - 1])
+    // bconsole.log(playedPictures[songCounter - 1])
 
     var text_div = document.createElement('DIV');
     text_div.setAttribute('class', 'flexbox'); 
 
     var title_p = document.createElement('P'); 
     title_p.setAttribute('class', 'played_title');
-    title_p.innerHTML = playedTitles[songCounter - 1];
+    title_p.innerHTML = titles[randomNumber];
 
-    console.log(playedTitles[songCounter - 1])
+    // console.log(playedTitles[songCounter - 1])
 
     var artist_p = document.createElement('P'); 
     artist_p.setAttribute('class', 'played_artist'); 
     artist_p.innerHTML = playedArtists[songCounter - 1];
+    //playedArtists is different than the others because it may have to display "& more..."
+    
+    var url_element = document.createElement("A");
+    url_element.setAttribute('class', 'track_url');
+    url_element.href = urls[randomNumber];
+    url_element.target = "_blank";
 
-    console.log(playedArtists[songCounter - 1])
+    var track_tab = document.createElement('P'); 
+    track_tab.setAttribute('class', 'material-icons');
+    track_tab.innerHTML = '&#xe89e;';
+
+    /*
+    <a href="https://www.tabletopgamingnews.com/category/board-games/" target="_blank"><p class="material-icons">&#xe89e;</p></a>
+    */
+
+    // console.log(playedArtists[songCounter - 1])
 
     docFragment.appendChild(song_div); // append div elem to your fragment
     song_div.appendChild(img_element); 
     song_div.appendChild(text_div);
     text_div.appendChild(title_p);
     text_div.appendChild(artist_p);
+    song_div.appendChild(url_element);
+    url_element.appendChild(track_tab);  
 
-
-    sectionCountdownSelector.appendChild(docFragment); // this appends the elem on your DOM
+    sectionCountdownSelector.insertBefore(docFragment, sectionCountdownSelector.childNodes[0]); 
+    // this appends the elem on your DOM
 }
 
 // function that retrieves the songs, or specifically preview URLs, from iTunes
@@ -419,6 +432,7 @@ function getDataFromItunes(genreResponse){
     tracks = [];
     artists = [];
     titles = [];
+    urls = [];
 
     genre = genreResponse;
     if(genre == "pop"){
@@ -503,7 +517,9 @@ function getDataFromItunes(genreResponse){
                         console.log(featArtist);
                         console.log(song.trackCensoredName);
 
-                        pictures.push(song.artworkUrl60)
+                        pictures.push(song.artworkUrl60);
+
+                        urls.push(song.trackViewUrl);
     
                         // check if the (ITEM, NOT ARRAY) song title has a feat.
                         // put the artist in a variable
@@ -528,7 +544,9 @@ function getDataFromItunes(genreResponse){
                         console.log(featArtist);
                         console.log(song.trackCensoredName);
 
-                        pictures.push(song.artworkUrl60)
+                        pictures.push(song.artworkUrl60);
+
+                        urls.push(song.trackViewUrl);
     
                         // check if the (ITEM, NOT ARRAY) song title has a feat.
                         // put the artist in a variable
@@ -559,6 +577,7 @@ function getDataFromItunes(genreResponse){
 
 }
 
+//function that pauses song after 5 seconds
 function timer(){
     timerFlag = "ON",
     pauseTimer = setTimeout(function(){
@@ -569,7 +588,7 @@ function timer(){
 }
 
 /* function that plays the song for an initial 5 seconds */
-function playSongQuiz(){
+function playSong(){
     randomNumber = Math.floor(Math.random() * ( nSongs - songCounter)); 
     // "* genre.length" because that's the number of artists
     // "- songCounter" because a song is used each time, decreasing the array, 
@@ -667,7 +686,7 @@ function playSongQuiz(){
 }
 
 /* function that plays the song for five more seconds if the user requests it */
-function continueSongQuiz(){
+function continueSong(){
 
     // song.src = tracks[randomNumber]; 
     document.getElementById("song_number").style.visibility = "visible";
@@ -686,6 +705,7 @@ function checkAnswer(guessResponse){
     // let pictures = ["https://media.giphy.com/media/vtm4qejJIl1ERPIrbA/giphy.gif","Images/meh.jpeg", "https://media.giphy.com/media/JLFq4Jh5bSJEDHZjSB/giphy.gif", "https://media.giphy.com/media/1APbU1fHHJpBi0EA4y/giphy.gif"];
     // let endMessages = ["No Sweat!", "Not Bad!", "Pretty Good!", "Great Job!"];
     let messages = ["C'mon!", "Awesome!", "*FEATURED artist*"];
+    let verdict = 0;
 
     // questionNumber++;
 
@@ -847,18 +867,15 @@ function checkAnswer(guessResponse){
     document.getElementById("picture").src = pictures[correct]; 
     */
 
-    playedTitles.push(titles[randomNumber]);
-    playedPictures.push(pictures[randomNumber]);
-    // playedArtists is pushed in the above if else statement
-
     // splice removes the selected item from the array
     // removes the played song and prevents playing repeats, or the same song multiple times.
+    songHistory();
+
     tracks.splice(randomNumber, 1);
     artists.splice(randomNumber, 1);
     titles.splice(randomNumber, 1);
     pictures.splice(randomNumber, 1);
-
-    songHistory();
+    urls.splice(randomNumber, 1);
 
     songCounter++;
 
