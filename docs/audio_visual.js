@@ -16,7 +16,7 @@
   };
   
 /*  function that makes a random soundwave for visual */
-    function random_soundwave(){
+    function randomSoundwave(){
     
     config.items = Array(config.max_distance - config.min_distance + 1).fill().map((_, idx) => 7 + idx);
     
