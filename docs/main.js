@@ -60,7 +60,6 @@ var urls = [];
 
 var songCounter = 1;
 var correct = 0;
-// var questionNumber = 0;
 var randomNumber = 0;
 var nSongs = 0;
 
@@ -71,6 +70,8 @@ var playedArtists = [];
 
 var timerFlag = "OFF";
 var pauseTimer;
+var delayFlag = "OFF";
+var display = "OFF";
 
 // end of declaration section.
 
@@ -447,20 +448,6 @@ function getDataFromItunes(genreResponse){
 
     console.log(genre.length);
 
-    // function that checks an ITEM, NOT ARRAY for a "feat.",
-    // puts the artist in a variable, and 
-    // adds the variable to the corresponding index of the "titles" array
-    //  ex. "artists.push(... + newVariable)"
-
-    /*
-    const xhr = new XMLHttpRequest();
-    const url = 'https://bar.other/resources/public-data/';
-
-    xhr.open('GET', url);
-    xhr.onreadystatechange = someHandler;
-    xhr.send();
-    */
-
     const url = 'https://itunes.apple.com/lookup?id='+ genre.join() + '&entity=song&limit=' + limit;
             // https://itunes.apple.com/lookup?id=262836961          &entity=song&
     // limit=5
@@ -512,19 +499,11 @@ function getDataFromItunes(genreResponse){
                         titles.push(song.trackCensoredName);
                         tracks.push(song.previewUrl);
                         nSongs++;
-                    
                         featArtist = checkFeatStr(song.trackCensoredName); 
-                        console.log(featArtist);
-                        console.log(song.trackCensoredName);
-
                         pictures.push(song.artworkUrl60);
-
                         urls.push(song.trackViewUrl);
     
-                        // check if the (ITEM, NOT ARRAY) song title has a feat.
-                        // put the artist in a variable
-                        // have the variable added ex. "artists.push(... + newVariable)"
-    
+                        // if there's a feat artist, add it to the artists array with the corresponding correct artist for later parsing
                         if (featArtist != ""){
                             artists.push(song.artistName + " &* " + featArtist);
                         }
@@ -539,18 +518,9 @@ function getDataFromItunes(genreResponse){
                         titles.push(song.trackCensoredName);
                         tracks.push(song.previewUrl);
                         nSongs++;
-                    
                         featArtist = checkFeatStr(song.trackCensoredName); 
-                        console.log(featArtist);
-                        console.log(song.trackCensoredName);
-
                         pictures.push(song.artworkUrl60);
-
                         urls.push(song.trackViewUrl);
-    
-                        // check if the (ITEM, NOT ARRAY) song title has a feat.
-                        // put the artist in a variable
-                        // have the variable added ex. "artists.push(... + newVariable)"
     
                         if (featArtist != ""){
                             artists.push(song.artistName + " &* " + featArtist);
@@ -562,9 +532,18 @@ function getDataFromItunes(genreResponse){
                     }
 
                 }
+
             }
 
         })
+
+    // EASTER EGG (THANKS TO IAN FOR THE IDEA)
+    artists.push("Rick Astley");
+    titles.push("Never Gonna Give You Up");
+    tracks.push("https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/16/0e/1e/160e1e17-1b38-1980-06ac-ec5e21f85a06/mzaf_7101340016362413522.plus.aac.p.m4a");
+    pictures.push("https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/33/96/b2/3396b234-6916-4418-4bf1-526de38c8de8/source/60x60bb.jpg");
+    urls.push("https://music.apple.com/us/album/never-gonna-give-you-up/1558533900?i=1558534271&uo=4");
+    nSongs++;
 
     titles = checkParenthArray(titles);
 
@@ -577,7 +556,7 @@ function getDataFromItunes(genreResponse){
 
 }
 
-//function that pauses song after 5 seconds
+// function that pauses song after 5 seconds
 function timer(){
     timerFlag = "ON",
     pauseTimer = setTimeout(function(){
@@ -587,21 +566,28 @@ function timer(){
     5000); 
 }
 
-/* function that plays the song for an initial 5 seconds */
+// function that plays the song for an initial 5 seconds
 function playSong(){
+    if( display == "ON"){
+        setTimeout(function(){
+            playSong();
+        },
+        3500);
+        return;
+    }
+
     randomNumber = Math.floor(Math.random() * ( nSongs - songCounter)); 
-    // "* genre.length" because that's the number of artists
+    // "* nSongs" because that's the total number of songs
     // "- songCounter" because a song is used each time, decreasing the array, 
     // so the random number selecting the song should be decremented.
     console.log(nSongs)
 
     var range = document.querySelector("#range");
-    var isPlaying = false;
 
     song.src = tracks[randomNumber]; 
     song.volume = volume;
 
-
+    // disables the button on the slider, so user cannot control the music
     document.getElementsByClassName("buttons").disabled = true;
 
     document.getElementById("song_number").innerHTML = "Song #" 
@@ -609,70 +595,27 @@ function playSong(){
 
     console.log(song);
     console.log(randomNumber);
-
     console.log(artists[randomNumber], " and ", titles[randomNumber]);
-
-    // let myArray = ['a', 'b', 'c', 'd'];
-    // console.log(myArray.splice(2, 1));
-
     console.log(tracks);
 
-    document.getElementById("after_submit").style.visibility = "hidden";
     document.getElementById("song_number").style.visibility = "visible";
     document.getElementById("svg").style.visibility = "visible";
-    random_soundwave();
-
-    /*
-    var playPromise = video.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-        // Automatic playback started!
-        // Show playing UI.
-        })
-        .catch(error => {
-        // Auto-play was prevented
-        // Show paused UI.
-        });
-    }
-    */
+    randomSoundwave();
 
     var playPromise = song.play();
 
     if (playPromise !== undefined) {
         playPromise.then(_ => {
 
-        isPlaying = true;
         total_time = 10; /* song.duration; */
         range.max = 10;  /* total_time; */
 
         timer();
-
-        if(!isPlaying){
-            song.pause();
-            isPlaying = false;
-        }
-        /*
-        // pauses song when it completely ends, not very applicable
-        song.addEventListener('ended',function(){
-            song.currentTime = 0
-            song.pause();
-            isPlaying = false;
-            range.value = 0;
-        })
-        */
         // updates the button on the bar
         song.addEventListener('timeupdate',function(){
             range.value = song.currentTime; 
         })
-        /*
-        // updates the button on the bar if the user slides the button, but that's disables so this is useless
-        range.addEventListener('change',function(){
-            song.currentTime = range.value;
-            console.log(range.value)
-        })
-        */
-
+        
         })
         .catch(error => {
         // Auto-play was prevented
@@ -697,6 +640,17 @@ function continueSong(){
     timer();
 }
 
+// function that displays corresponding messages and gif longer after checking the user's answer
+function displayLonger(){
+    display = "ON";
+    document.getElementById("after_submit").style.visibility ="visible";
+    displayTimer = setTimeout(function(){
+        document.getElementById("after_submit").style.visibility = "hidden";
+        display = "OFF";
+    },
+    3500); 
+}
+
 /* check function that uses user input from Alan AI */
 function checkAnswer(guessResponse){
 
@@ -706,8 +660,6 @@ function checkAnswer(guessResponse){
     // let endMessages = ["No Sweat!", "Not Bad!", "Pretty Good!", "Great Job!"];
     let messages = ["C'mon!", "Awesome!", "*FEATURED artist*"];
     let verdict = 0;
-
-    // questionNumber++;
 
     console.log(artists[randomNumber]);
     console.log(titles[randomNumber]);
@@ -832,13 +784,6 @@ function checkAnswer(guessResponse){
         document.getElementById("picture").src = "https://media.giphy.com/media/xThta485tRMnh08slq/giphy.gif";
     }
 
-    /*
-    // display the conclusion message and picture at the end of the game.
-    if (questionNumber === 3){
-        document.getElementById("message").innerHTML = messages[correct];
-        document.getElementById("picture").src = pictures[correct];    
-    }
-    */
 
     document.getElementById("score").innerHTML = "Score: " + correct + " / " + songCounter;
 
@@ -856,16 +801,15 @@ function checkAnswer(guessResponse){
         playedArtists.push(mainArray[0]);
     }
 
-    
     // display the score, correct artist and title, and corresponding picture and messages
     // after_submit is the section comprising of: song, picture, and is_correct
-    document.getElementById("after_submit").style.visibility = "visible";
+    displayLonger();
     document.getElementById("score").style.visibility = "visible";
 
-    /* document.getElementById("number_correct").innerHTML = "You got " + correct + " correct.";
-    document.getElementById("message").innerHTML = messages[correct];
-    document.getElementById("picture").src = pictures[correct]; 
-    */
+    delayFlag = "ON";
+    alanBtnInstance.playText(answer + "!");
+    alanBtnInstance.playText(" The song was " + titles[randomNumber] + " by " + mainArray[0]);
+    delayFlag = "OFF";
 
     // splice removes the selected item from the array
     // removes the played song and prevents playing repeats, or the same song multiple times.
@@ -878,10 +822,4 @@ function checkAnswer(guessResponse){
     urls.splice(randomNumber, 1);
 
     songCounter++;
-
-    // Make sure to finish CheckAnswer() (i.e. to return to the caller) after the timer is done.
-    // Stall the execution here until the timer is completed, then finish the function execution (i.e. return to the caller).
-    // Implement a solution without timer(), but also check the remaining timer.
-    // Use TimerFlag RUNNING or OFF.
-    // For example: 
-} // End of CheckAnswer().
+}
