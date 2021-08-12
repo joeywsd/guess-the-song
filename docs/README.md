@@ -15,11 +15,7 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-- Under the Alan AI internship from Pilot City, the game "Guess The Song" highlights how Alan AI's voice assistant can elevate the user's experience. Instead of the user having to type in the name of the artist or the song, the user simply has to speak. This seemingly small, yet very impactful change can greatly improve the conventional game. I am undertaking this project because I thought this would be a fun, educational challenge.
+- Under the Alan AI internship from Pilot City, I developed the game "Guess The Song", which highlights how Alan AI's voice assistant can elevate the user's experience. Instead of the user having to type in the name of the artist or the song, the user simply has to speak. This seemingly small, yet very impactful change can greatly improve the conventional game. I am undertaking this project because I thought this would be a fun, educational challenge.
 
 
 ## Technologies Used
