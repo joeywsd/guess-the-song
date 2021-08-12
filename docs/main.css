@@ -1,7 +1,7 @@
 /*
     Author: Johnathan Sutan
     Last Updated: 7/30/21
-    File linked: index.html, main.js, audio_visual.js, itunes.js
+    File linked: index.html, about.html, rules.html, main.js, audio_visual.js, itunes.js
 */
 
 /* reset styles */
@@ -25,6 +25,7 @@ p{
     font-size: medium;
 }
 
+/* body */
 body{
     min-height: 100vh;
 }
@@ -41,21 +42,52 @@ main{
 }
 
 .nav_section{
+    margin: 1% 1% 1% 2%;
+    padding: 1%;
     display: flex;
-    padding: 2%;
-    margin-left: 1%;
-    flex: 1;
     background: linear-gradient(
         to left bottom,
         rgba(255, 255, 255, 0.5),
         rgba(255, 255, 255, 0.3)
-      );
-      border-radius: 50%;
-      justify-content: center;
+        );
+    border-radius: 2rem;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    align-self: stretch;
+    height: 35rem;
+}
+
+.logo{
+    display: flex;
+    height: 16rem; 
+    width: 16rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/* site navigation bar */
+.sitenavigation{
+    display: flex;
+    text-align: center;
+    flex-flow: column wrap;
+}
+
+ul.sitenavigation li{
+    list-style-type: none;
+    margin: 0.5em;
+}
+
+li{
+    padding: 2%;
+    text-align: center;
+    font-size: large;
 }
 
 article{
     margin: 1%;
+    padding: 1%;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
     flex: 7;
@@ -63,8 +95,24 @@ article{
     padding-top: 1%;
 }
 
+.general{
+    padding: 1%;
+    align-self: stretch;
+    height: 27.8rem;
+}
+
+div h2{
+    padding: 1%;
+    font-size: x-large;
+    color: #00419D;
+}
+
+.general p{
+    width: 60rem;
+}
+
 .song_history{
-    margin: 1%;
+    margin: 1% 2% 1% 1%;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
     flex: 2;
@@ -85,7 +133,7 @@ article{
     width: 12rem;
     position: absolute;
     border-radius: 50%;
-    visibility: hidden;
+    visibility: visible;
     top: 7%;
     right: 7%;
     justify-content: space-evenly;
@@ -184,10 +232,10 @@ input[type=range]{
 }
 
 footer{
-    margin-bottom: 1%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .footer_flex{
@@ -282,5 +330,24 @@ svg{
 @media screen and (max-width: 1300px){
     main section, article{
         flex-basis: 100%;
+    }
+    .nav_section, article, .song_history{
+        margin: 2%;
+    }
+}
+@media screen and (max-width: 768px){
+    #score{
+        height: 10rem;
+        width: 10rem;
+        top: 2%;
+        right: -1%;
+        word-wrap: break-word;
+    }
+    .general p{
+        height: auto;
+        width: auto;
+    }
+    footer{
+        margin-top: 14%;
     }
 }
