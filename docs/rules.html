@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--
+            Author: Johnathan Sutan
+            Last Updated: 8/10/21
+            File info: About Page of Guessing the Song
+            -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Guess the Song!</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+        rel="stylesheet"
+        />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans&display=swap"
+        rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+
+        <link rel="stylesheet" href="main.css">
+
+    </head>
+    <body>
+        <main>
+            <section class = "nav_section">
+                <div class = "logo">
+                    <img src="Images/Guess_the_Song_logo_smaller.png" height = 120 width = 163 alt= "Guess the Song logo">
+                </div>
+                <ul class="sitenavigation">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="rules.html">How to Play</a></li>
+                    <li><a href="https://alan.app/" target="_blank">Alan AI</a></li>
+                </ul>
+            </section>
+            
+            <article>
+                <div class = "general">
+                    <h2>
+                        How to Play
+                    </h2>
+                    <p>
+                        First, select a game mode. There are two game modes: Infinite & Normal. In the Infinite game mode, 20 songs are played. In the Normal game mode, 3 songs are played. Then, select a genre. In both game modes, Each song will play for 5 seconds and after the song ends you have ten seconds to guess. You may request for the song to continue playing. To exit the game, say "exit". When you want to start playing, tell Alan!
+                    </p>
+                </div>
+                <footer>
+                    <div class = "footer_flex">
+                        <p class = "bottom_left">
+                            <span class="accent">Guess the Song!</span>
+                            <a href="https://www.instagram.com/guess_the_song2021/" target="_blank">
+                                <img src="Images/instagramicon.png" alt= "instagram icon">
+                            </a>
+                        </p>
+                    </div>
+                    <div class = "bottom_right">
+                        <p class = "small">Audio provided courtesy of iTunes</p>
+                    </div>
+                </footer>
+            </article>
+        </main>
+        <!--
+        <div class="alan-btn"></div>
+        <div>
+            <p id = "score"></p>
+        </div>
+        -->
+        <script src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="audio_visual.js"></script>
+    </body>
+</html>
