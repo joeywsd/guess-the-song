@@ -335,7 +335,7 @@ svg{
         margin: 2%;
     }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 500px){
     #score{
         height: 10rem;
         width: 10rem;
