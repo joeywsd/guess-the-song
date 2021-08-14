@@ -468,8 +468,8 @@ function getDataFromItunes(genreResponse){
     else if(genre == rap){
         genre = "RAP";
     }
-    fetch(cors + url) //fetch url and turn it into JSON then into HTML
-    // fetch(url) //fetch url and turn it into JSON then into HTML
+    // fetch(cors + url) //fetch url and turn it into JSON then into HTML
+    fetch(url) //fetch url and turn it into JSON then into HTML
     .then( data => data.json())
     .then( json => {
     console.log(json);
