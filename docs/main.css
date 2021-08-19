@@ -133,7 +133,7 @@ div h2{
     width: 12rem;
     position: absolute;
     border-radius: 50%;
-    visibility: visible;
+    visibility: hidden;
     top: 7%;
     right: 7%;
     justify-content: space-evenly;
