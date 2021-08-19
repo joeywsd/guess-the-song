@@ -572,7 +572,7 @@ function playSong(){
         setTimeout(function(){
             playSong();
         },
-        3500);
+        5000);
         return;
     }
 
