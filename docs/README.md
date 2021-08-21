@@ -44,7 +44,6 @@ To do:
 
 
 ## Acknowledgements
-Give credit here.
 - This project was inspired by https://www.youtube.com/watch?v=VjgL_TD9JpQ, https://www.youtube.com/watch?v=O7WbVj5apxU, https://songtrivia2.io/, and https://github.com/lpinca/binb
 
 ## Contact
