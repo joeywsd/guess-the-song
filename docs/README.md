@@ -22,28 +22,30 @@
 - HTML 5
 - CSS level 3 
 - (Vanilla) Javascript ES6
+- Alan AI
 
 
 ## Features
 - Alan AI voice assistant as game host
 - Extensive Library of Songs through iTunes Search API
+- Displays Correct Answers
+- Easter Egg
 
 ## Screenshots
-![Example screenshot 1](./Images/Milestone5b.png)
+![Example screenshot 1](./Images/SinglePlayerFinal.png)
 
 ## Project Status
 In Progress
 
 ## Room for Improvement
 To do:
-- Add More Categories & More Songs
-- Display the Correct Answers
-- Easter Eggs
+- Multiplayer functionality
+- Refactoring
 
 
 ## Acknowledgements
 Give credit here.
-- This project was inspired by https://www.youtube.com/watch?v=VjgL_TD9JpQ, https://www.youtube.com/watch?v=O7WbVj5apxU, and https://github.com/lpinca/binb
+- This project was inspired by https://www.youtube.com/watch?v=VjgL_TD9JpQ, https://www.youtube.com/watch?v=O7WbVj5apxU, https://songtrivia2.io/, and https://github.com/lpinca/binb
 
 ## Contact
 Created by [@guess_the_song2021](https://www.instagram.com/guess_the_song2021/) - feel free to contact me!
