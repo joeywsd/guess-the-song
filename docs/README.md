@@ -22,7 +22,7 @@
 - HTML 5
 - CSS level 3 
 - (Vanilla) Javascript ES6
-- Alan AI
+- Alan AI - put the "AlanAI" file into the Alan AI platform & change the integration.
 
 
 ## Features
