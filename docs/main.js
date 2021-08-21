@@ -96,6 +96,10 @@ onCommand: function (commandData) {
         var genreFromAlan = commandData.value.value;
         getDataFromItunes(genreFromAlan);
     }
+    else if( commandData.command === "finalthanks"){
+        var name = commandData.value.value;
+        finalThanks(name);
+    }
     else if (commandData.command === "resetpage") {
         correct = 0;
         songCounter = 1;
@@ -572,7 +576,7 @@ function playSong(){
         setTimeout(function(){
             playSong();
         },
-        7000);
+        5000);
         return;
     }
 
@@ -648,7 +652,7 @@ function displayLonger(){
         document.getElementById("after_submit").style.visibility = "hidden";
         display = "OFF";
     },
-    3500); 
+    5000); 
 }
 
 /* check function that uses user input from Alan AI */
@@ -822,4 +826,15 @@ function checkAnswer(guessResponse){
     urls.splice(randomNumber, 1);
 
     songCounter++;
+}
+
+// function that says thanks for playing
+function finalThanks(name){
+    console.log(name);
+    if(name == undefined){
+        alanBtnInstance.playText("Thanks for playing!");
+    }
+    else{
+        alanBtnInstance.playText("Thanks for playing" + name + "!");
+    }
 }
