@@ -580,7 +580,7 @@ function playSong(){
         return;
     }
 
-    randomNumber = Math.floor(Math.random() * ( nSongs - songCounter)); 
+    randomNumber = Math.floor(Math.random() * ( nSongs - songCounter + 1)); 
     // "* nSongs" because that's the total number of songs
     // "- songCounter" because a song is used each time, decreasing the array, 
     // so the random number selecting the song should be decremented.
