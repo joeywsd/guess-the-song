@@ -584,6 +584,7 @@ function playSong(){
     // "* nSongs" because that's the total number of songs
     // "- songCounter" because a song is used each time, decreasing the array, 
     // so the random number selecting the song should be decremented.
+    // + 1 because Math.random is 0.0 inclusive and 1.0 EXCLUSIVE --- the + 1 and the Math.floor together make up for the 1.0 exclusive 
     console.log(nSongs)
 
     var range = document.querySelector("#range");
