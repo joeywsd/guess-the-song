@@ -3,6 +3,7 @@
 >
 > **Game no longer works due to the bottom right button, a beta feature, being taken away
 > Game Link: https://guess-the-song-new.netlify.app/
+>
 > Video Playthrough: https://www.youtube.com/watch?v=tBZEjpA_XHU&list=PLXK0epR7dq__RmuabNXSC--2nIHnS5Qcd&index=2
 > 
 ## Table of Contents
