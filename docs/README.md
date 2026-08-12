@@ -1,7 +1,7 @@
 # guess-the-song
 > Project Guess The Song is a simple single player guessing the song game. However, with the integration of Alan AI's voice assistant, the user experience is vastly greater than the conventional game.
 > 
-> Game Link: https://joeywsd.github.io/guess-the-song/
+> Game Link: [https://joeywsd.github.io/guess-the-song/](https://l.instagram.com/?u=https%3A%2F%2Fguess-the-song-new.netlify.app%2F&e=AUCwd4lYPVVlB-MKLJ12jWy44hW-vSpBCR_MM6GfLi9ZHOziW-I1H0P-8bDJecEgw_kn5mjfep8jlXoHsKiqVovPE0gj9IAP4DpKts9EsOdkjkpIHKC1L3ov7fs)
 
 ## Table of Contents
 * [General Info](#general-information)
